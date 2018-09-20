@@ -359,18 +359,15 @@ testex100: ex100.PETSc
         ${RM} -f ex100_1.tmp; fi
 
 include ${PETSC_DIR}/lib/petsc/conf/test
-hellow: hellow.o  chkopts
+hellow: hellow.o chkopts
 	-${CLINKER} -o hellow hellow.o	${PETSC_KSP_LIB}
 	${RM} hellow.o
-
-cpi: cpi.o  chkopts
+cpi: cpi.o chkopts
 	-${CLINKER} -o cpi cpi.o ${PETSC_KSP_LIB}
 	${RM} cpi.o
-
-hw3_s: hw3_s.o  chkopts
-	-${CLINKER} -o hw3_s hw3_s.o ${PETSC_KSP_LIB}
-	${RM} hw3_s.o
-
-HW3_Ludwig_Robert: HW3_Ludwig_Robert.o  chkopts
-	-${CLINKER} -o HW3_Ludwig_Robert HW3_Ludwig_Robert.o ${PETSC_KSP_LIB}
+HW3_Ludwig_Robert: HW3_Ludwig_Robert.o chkopts
+	-${CLINKER} -o HW3_Ludwig_Robert HW3_Ludwig_Robert.o
 	${RM} HW3_Ludwig_Robert.o
+HW4_Ludwig_Robert: HW4_Ludwig_Robert.o chkopts
+	-${CLINKER} -o HW4_Ludwig_Robert HW4_Ludwig_Robert.o ${PETSC_KSP_LIB}
+	${RM} HW4_Ludwig_Robert.o
