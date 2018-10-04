@@ -366,7 +366,7 @@ cpi: cpi.o chkopts
 	-${CLINKER} -o cpi cpi.o ${PETSC_KSP_LIB}
 	${RM} cpi.o
 HW3_Ludwig_Robert: HW3_Ludwig_Robert.o chkopts
-	-${CLINKER} -o HW3_Ludwig_Robert HW3_Ludwig_Robert.o
+	-${CLINKER} -o HW3_Ludwig_Robert HW3_Ludwig_Robert.o ${PETSC_KSP_LIB}
 	${RM} HW3_Ludwig_Robert.o
 HW4_Ludwig_Robert: HW4_Ludwig_Robert.o chkopts
 	-${CLINKER} -o HW4_Ludwig_Robert HW4_Ludwig_Robert.o ${PETSC_KSP_LIB}
