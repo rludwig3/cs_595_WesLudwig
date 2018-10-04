@@ -19,13 +19,12 @@ int main(int argc,char **argv)
 {
   PetscErrorCode ierr;
   PetscMPIInt    rank;
-  PetscInt       i,N;
+  PetscInt       Ii=1,i,j,N;
   PetscScalar    one = 1.0,k[1];
   Vec            x;
 
   ierr = PetscInitialize(&argc,&argv,(char*)0,help);if (ierr) return ierr;
   ierr = MPI_Comm_rank(PETSC_COMM_WORLD,&rank);CHKERRQ(ierr);
-
   /*
      Create a parallel vector.
       - In this case, we specify the size of each processor's local
@@ -38,7 +37,7 @@ int main(int argc,char **argv)
   ierr = VecSetSizes(x,rank+1,PETSC_DECIDE);CHKERRQ(ierr);
   ierr = VecSetFromOptions(x);CHKERRQ(ierr);
   ierr = VecGetSize(x,&N);CHKERRQ(ierr);
-  ierr = VecSet(x,one);CHKERRQ(ierr);
+//  ierr = VecSet(x,one);CHKERRQ(ierr);
 
   /*
      Set the vector elements.
@@ -50,12 +49,28 @@ int main(int argc,char **argv)
       - In this example, the flag ADD_VALUES indicates that all
         contributions will be added together.
   */
-  k[0] = (PetscScalar)rank+1.0;
-  printf("Rank: %d, k: %d\n",(int)rank,(int)k[0]);
-  for (i=0; i<N-rank; i++) {
-    ierr = VecSetValues(x,1,&i,&k,INSERT_VALUES);CHKERRQ(ierr);
+  k[0] = one;
+
+//Compute starting index Ii for each process, hard code Ii of process 0 and 2
+
+  for (j=1; j<=rank; j++) {
+	Ii = Ii * j;
   }
 
+  if (rank == 0) {
+	Ii = 0;
+  }
+  if (rank == 2) {
+	Ii = 3;
+  }
+
+//Itereate from Ii to N-1, adding one each time
+
+  for (i=Ii; i<N; i++) {
+// 	printf("Rank: %d, Ii:%d  i: %d\n",rank,Ii,i);
+	ierr = VecSetValues(x,1,&i,k,ADD_VALUES);CHKERRQ(ierr);
+  }
+  
   /*
      Assemble vector, using the 2-step process:
        VecAssemblyBegin(), VecAssemblyEnd()
