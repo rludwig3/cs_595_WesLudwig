@@ -11,7 +11,7 @@ int main(int argc,char **argv)
 {
   /* Declare vars here */
   PetscErrorCode ierr;
-  ierr = PetscInitialize(&argc,&argv,(char*)0,help);if (ierr) return ierr;
+  ierr = PetscInitialize(&argc,&argv,(char*)0,0);if (ierr) return ierr;
   //ierr = AnaModInitialize(); CHKERRQ(ierr);
   //ierr = AnaModFinalize(); CHKERRQ(ierr);
   PetscFinalize();
