@@ -1,4 +1,4 @@
-CFLAGS	         = 
+CFLAGS	         =
 FFLAGS	         =
 CPPFLAGS         =
 FPPFLAGS         =
@@ -20,9 +20,10 @@ include ${PETSC_DIR}/lib/petsc/conf/variables
 include ${PETSC_DIR}/lib/petsc/conf/rules
 
 anamod_test: anamod_test.o chkopts
-	$(CLINKER) -o anamod_test anamod_test.o
-	-L$(SALSA_MODULES_DIR) -lsalsamodules
-	$(PETSC_LIB)
+	-$(CLINKER) -o anamod_test anamod_test.o \
+	 -L$(SALSA_MODULES_LIB_DIR) -lsalsamodules \
+	$(PETSC_KSP_LIB)
+	${RM} anamod_test.o
 
 ex1: ex1.o  chkopts
 	-${CLINKER} -o ex1 ex1.o  ${PETSC_KSP_LIB}
